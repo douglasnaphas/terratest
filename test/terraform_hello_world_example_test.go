@@ -1,6 +1,8 @@
 package test
 
 import (
+	"fmt"
+	"os"
 	"testing"
 
 	"github.com/gruntwork-io/terratest/modules/terraform"
@@ -22,4 +24,5 @@ func TestTerraformHelloWorldExample(t *testing.T) {
 	// website::tag::3:: Run `terraform output` to get the values of output variables and check they have the expected values.
 	output := terraform.Output(t, terraformOptions, "hello_world")
 	assert.Equal(t, "Hello, World!", output)
+	fmt.Println(os.Getenv("xxx"))
 }
