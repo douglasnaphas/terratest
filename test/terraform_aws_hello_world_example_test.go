@@ -6,8 +6,8 @@ import (
 	"time"
 
 	http_helper "github.com/gruntwork-io/terratest/modules/http-helper"
-
 	"github.com/gruntwork-io/terratest/modules/terraform"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestTerraformAwsHelloWorldExample(t *testing.T) {
@@ -30,4 +30,9 @@ func TestTerraformAwsHelloWorldExample(t *testing.T) {
 	// website::tag::4:: Make an HTTP request to the instance and make sure we get back a 200 OK with the body "Hello, World!"
 	url := fmt.Sprintf("http://%s:8080", publicIp)
 	http_helper.HttpGetWithRetry(t, url, nil, 200, "Hello, World!", 30, 5*time.Second)
+	s, d := http_helper.HttpGet(t, url, nil)
+	fmt.Println("received:")
+	fmt.Println(s)
+	fmt.Println(d)
+	assert.Equal(t, "Hello, World!", d)
 }
